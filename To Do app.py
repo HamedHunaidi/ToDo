@@ -1,13 +1,17 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QFont
 
 
 def main():
     app = QApplication([])
     window = QWidget()
-    window.show()
 
     label = QLabel(window)
     label.setText("KawaBanga")
+    label.setFont(QFont("Arial", 16))
+    window.setGeometry(100, 100, 200, 300)
+
+    window.show()
     app.exec_()
 
 
