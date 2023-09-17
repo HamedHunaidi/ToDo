@@ -1,6 +1,9 @@
 import customtkinter
 from CTkListbox import *
 from customtkinter import END
+import tkinter
+from tkinter import *
+
 
 root = customtkinter.CTk()
 root.title("To Do")
@@ -51,6 +54,18 @@ def addTask():
         listbox.insert(END, task)
 
 
+def deleteTask():
+    global task_list
+    task = str(listbox.get())
+    if task in task_list:
+        task_list.remove(task)
+        with open("TaskList.txt", "w") as taskfie:
+            for task in task_list:
+                taskfie.write(task + "\n")
+
+        listbox.delete(listbox.curselection())
+
+
 frame = customtkinter.CTkFrame(master=root)
 frame.pack(pady=20, padx=60, fill="both", expand=True)
 label = customtkinter.CTkLabel(master=frame, text="Today's To Do list!")
@@ -61,10 +76,11 @@ frame2.pack(pady=12, padx=10)
 listbox = CTkListbox(frame2)
 listbox.pack()
 
-button0 = customtkinter.CTkButton(master=frame, text="Delete Task")
+button0 = customtkinter.CTkButton(master=frame, text="Delete Task", command=deleteTask)
 button0.pack(pady=12, padx=10)
 button1 = customtkinter.CTkButton(master=frame, text=" Add a new task!", command=popup)
 button1.pack(pady=12, padx=10)
 
 openTaskFile()
+
 root.mainloop()
